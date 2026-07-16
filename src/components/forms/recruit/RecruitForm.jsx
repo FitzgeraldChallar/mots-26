@@ -39,7 +39,7 @@ export default function RecruitForm() {
             Captains help mobilize others to attend the Move of the Spirit
             event. If you would like to serve as a Captain, we'll take you to
             the Captain Registration Form. Otherwise, you can continue your
-            registration as a attendee.
+            registration as an attendee.
           </p>
 
           <div className="flex flex-col sm:flex-row justify-center gap-4">
