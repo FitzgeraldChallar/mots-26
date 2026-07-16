@@ -13,6 +13,11 @@ export const validateCaptainStep1 = (data) => {
     errors.gender = "Please select your gender.";
   }
 
+  // Age Range
+  if (!data.age_range) {
+    errors.age_range = "Please select your age range.";
+  }
+
   // Phone
   if (!data.phone.trim()) {
     errors.phone = "Phone number is required.";
@@ -20,7 +25,16 @@ export const validateCaptainStep1 = (data) => {
     errors.phone = "Phone number must contain exactly 10 digits.";
   }
 
-  // Email (optional)
+  // WhatsApp (Optional)
+  if (
+    data.whatsapp_number &&
+    !/^\d{10}$/.test(data.whatsapp_number)
+  ) {
+    errors.whatsapp_number =
+      "WhatsApp number must contain exactly 10 digits.";
+  }
+
+  // Email (Optional)
   if (
     data.email &&
     !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)

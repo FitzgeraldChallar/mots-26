@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import {
   Users,
   UserPlus,
+  UserCheck,
+  UserRoundPlus,
   Church,
   TrendingUp,
   Trophy,
@@ -18,6 +20,7 @@ export default function AdminDashboardPage() {
   const navigate = useNavigate();
 
   const [dashboard, setDashboard] = useState(null);
+  console.log("Dashboard:", dashboard);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -47,9 +50,19 @@ export default function AdminDashboardPage() {
       icon: <Users className="text-purple-700" size={28} />,
     },
     {
-      title: "Total Recruits",
+      title: "Total Registrations",
       value: dashboard?.total_recruits ?? 0,
       icon: <UserPlus className="text-green-700" size={28} />,
+    },
+    {
+      title: "Through Captains",
+      value: dashboard?.captain_registrations ?? 0,
+      icon: <UserCheck className="text-blue-700" size={28} />,
+    },
+    {
+      title: "Independent",
+      value: dashboard?.independent_registrations ?? 0,
+      icon: <UserRoundPlus className="text-orange-600" size={28} />,
     },
     {
       title: "Churches Represented",
@@ -59,14 +72,13 @@ export default function AdminDashboardPage() {
     {
       title: "Event Progress",
       value: `${dashboard?.progress ?? 0}%`,
-      icon: <TrendingUp className="text-blue-700" size={28} />,
+      icon: <TrendingUp className="text-emerald-700" size={28} />,
     },
   ];
 
   return (
     <MainLayout>
       <section className="bg-gray-50 min-h-screen py-10 px-4 sm:px-6">
-
         <div className="max-w-7xl mx-auto">
 
           {/* Header */}
@@ -96,7 +108,7 @@ export default function AdminDashboardPage() {
 
           {/* Statistic Cards */}
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 mb-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 mb-10">
 
             {stats.map((item) => (
               <div
@@ -228,7 +240,7 @@ export default function AdminDashboardPage() {
                 />
 
                 <h2 className="text-2xl font-bold text-purple-900">
-                  Recent Recruits
+                  Recent Registrations
                 </h2>
 
               </div>
@@ -256,17 +268,21 @@ export default function AdminDashboardPage() {
 
                       </p>
 
-                      <p className="text-sm text-gray-500">
+                      {recruit.captain__full_name ? (
+                        <>
+                          <p className="text-sm text-gray-500">
+                            Captain: {recruit.captain__full_name}
+                          </p>
 
-                        Captain: {recruit.captain__full_name}
-
-                      </p>
-
-                      <p className="text-sm text-gray-500">
-
-                        {recruit.captain__captain_code}
-
-                      </p>
+                          <p className="text-sm text-gray-500">
+                            {recruit.captain__captain_code}
+                          </p>
+                        </>
+                      ) : (
+                        <p className="text-sm italic text-orange-600">
+                          Independent Registration
+                        </p>
+                      )}
 
                     </div>
 
@@ -277,7 +293,7 @@ export default function AdminDashboardPage() {
               ) : (
 
                 <p className="text-gray-500">
-                  No recruit registrations yet.
+                  No registrations yet.
                 </p>
 
               )}
@@ -360,7 +376,6 @@ export default function AdminDashboardPage() {
           </div>
 
         </div>
-
       </section>
     </MainLayout>
   );

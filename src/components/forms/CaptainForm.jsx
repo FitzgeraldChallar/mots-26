@@ -11,7 +11,9 @@ export default function CaptainForm() {
   const initialFormData = {
     full_name: '',
     gender: '',
+    age_range: "",
     phone: '',
+    whatsapp_number: "",
     email: '',
     church_branch: '',
     zone: '',

@@ -10,6 +10,7 @@ export default function CaptainLookupStep({
   captain,
   setCaptain,
   nextStep,
+  skipCaptain,
 }) {
   const [captainCode, setCaptainCode] = useState("");
   const [loading, setLoading] = useState(false);
@@ -150,17 +151,45 @@ export default function CaptainLookupStep({
 
       {/* Continue Button */}
 
-      <div className="pt-2">
+      <div className="space-y-6">
 
-        <Button
-          onClick={nextStep}
-          disabled={!captain || loading}
-          className="w-full"
-        >
-          Continue →
-        </Button>
+  {/* Continue with verified captain */}
 
-      </div>
+  <div className="flex justify-end">
+
+    <Button
+      disabled={!captain}
+      onClick={nextStep}
+    >
+      Continue →
+    </Button>
+
+  </div>
+
+  {/* Continue without captain */}
+
+  <div className="rounded-2xl border border-dashed border-gray-300 bg-gray-50 p-6 text-center">
+
+    <h3 className="text-lg font-bold text-gray-800">
+      Don't have a Captain Code?
+    </h3>
+
+    <p className="mt-2 text-gray-600">
+      You can still register for Move of the Spirit 2026 even if you were
+      not invited by a captain.
+    </p>
+
+    <Button
+      variant="outline"
+      className="mt-5"
+      onClick={skipCaptain}
+    >
+      Continue Without Captain
+    </Button>
+
+  </div>
+
+</div>
 
     </div>
   );

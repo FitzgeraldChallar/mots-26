@@ -15,7 +15,7 @@ export default function RecruitDetailsStep({
   const [errors, setErrors] = useState({});
 
   const [formData, setFormData] = useState({
-    captain_code: captain.captain_code,
+    captain_code: captain?.captain_code || "",
     full_name: "",
     gender: "",
     age: "",
@@ -79,10 +79,14 @@ export default function RecruitDetailsStep({
 
     } catch (err) {
       console.error(err);
+
       if (err.response && err.response.data) {
-        if (typeof err.response.data === 'object') {
+        if (typeof err.response.data === "object") {
           Object.entries(err.response.data).forEach(([field, messages]) => {
-            const msg = Array.isArray(messages) ? messages.join(', ') : messages;
+            const msg = Array.isArray(messages)
+              ? messages.join(", ")
+              : messages;
+
             toast.error(`${field}: ${msg}`);
           });
         } else {
@@ -116,19 +120,38 @@ ${
   return (
     <div className="space-y-8">
 
-      <div className="rounded-2xl bg-green-50 border border-green-300 p-5">
+      {/* Captain Information */}
 
-        <h3 className="font-bold text-green-700">
-          Registering Under
-        </h3>
+      {captain ? (
+        <div className="rounded-2xl bg-green-50 border border-green-300 p-5">
 
-        <p className="mt-2 text-lg font-semibold">
-          {captain.full_name}
-        </p>
+          <h3 className="font-bold text-green-700">
+            Registering Under
+          </h3>
 
-        <p>{captain.church_branch}</p>
+          <p className="mt-2 text-lg font-semibold">
+            {captain.full_name}
+          </p>
 
-      </div>
+          <p>{captain.church_branch}</p>
+
+        </div>
+      ) : (
+        <div className="rounded-2xl bg-blue-50 border border-blue-300 p-5">
+
+          <h3 className="font-bold text-blue-700">
+            Independent Registration
+          </h3>
+
+          <p className="mt-2 text-gray-700">
+            You are registering without a Captain. Your registration will
+            still be recorded for the event.
+          </p>
+
+        </div>
+      )}
+
+      {/* Registration Form */}
 
       <div className="space-y-5">
 
@@ -262,14 +285,14 @@ ${
           disabled={loading}
           className="w-full sm:w-auto"
         >
-         {loading ? (
-           <span className="flex items-center justify-center gap-2">
-             <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
-             <LoadingSpinner text="Registering..." />
-           </span>
-         ) : (
-           "Complete Registration"
-         )}
+          {loading ? (
+            <span className="flex items-center justify-center gap-2">
+              <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+              <LoadingSpinner text="Registering..." />
+            </span>
+          ) : (
+            "Complete Registration"
+          )}
         </Button>
 
       </div>

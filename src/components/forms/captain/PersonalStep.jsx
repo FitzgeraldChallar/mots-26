@@ -110,24 +110,61 @@ export default function PersonalStep({
         )}
       </div>
 
+      {/* NEW - Age Range */}
+
+      <div>
+        <label className="block mb-2 font-semibold text-gray-700">
+          Age Range
+        </label>
+
+        <select
+          value={data.age_range}
+          onChange={(e) => {
+            updateForm({
+              age_range: e.target.value,
+            });
+
+            setErrors((prev) => ({
+              ...prev,
+              age_range: "",
+            }));
+          }}
+          className={inputClass("age_range")}
+        >
+          <option value="">Select Age Range</option>
+          <option value="12-18">12 - 18</option>
+          <option value="19-26">19 - 26</option>
+          <option value="27-35">27 - 35</option>
+          <option value="36-50">36 - 50</option>
+          <option value="51-75">51 - 75</option>
+          <option value="76+">76 and above</option>
+        </select>
+
+        {errors.age_range && (
+          <p className="mt-2 text-sm text-red-600">
+            {errors.age_range}
+          </p>
+        )}
+      </div>
+
       {/* Occupation */}
 
-<div>
-  <label className="block mb-2 font-semibold text-gray-700">
-    Occupation <span className="text-gray-400">(Optional)</span>
-  </label>
+      <div>
+        <label className="block mb-2 font-semibold text-gray-700">
+          Occupation <span className="text-gray-400">(Optional)</span>
+        </label>
 
-  <input
-    type="text"
-    value={data.occupation}
-    onChange={(e) =>
-      updateForm({
-        occupation: e.target.value,
-      })
-    }
-    className={inputClass("occupation")}
-  />
-</div>
+        <input
+          type="text"
+          value={data.occupation}
+          onChange={(e) =>
+            updateForm({
+              occupation: e.target.value,
+            })
+          }
+          className={inputClass("occupation")}
+        />
+      </div>
 
       {/* Phone */}
 
@@ -142,7 +179,6 @@ export default function PersonalStep({
           maxLength={10}
           value={data.phone}
           onChange={(e) => {
-            // Allow only digits
             const value = e.target.value.replace(/\D/g, "");
 
             updateForm({
@@ -162,6 +198,34 @@ export default function PersonalStep({
             {errors.phone}
           </p>
         )}
+      </div>
+
+      {/* NEW - WhatsApp */}
+
+      <div>
+        <label className="block mb-2 font-semibold text-gray-700">
+          WhatsApp Number <span className="text-gray-400">(Optional)</span>
+        </label>
+
+        <input
+          type="tel"
+          inputMode="numeric"
+          maxLength={10}
+          value={data.whatsapp_number}
+          onChange={(e) => {
+            const value = e.target.value.replace(/\D/g, "");
+
+            updateForm({
+              whatsapp_number: value,
+            });
+
+            setErrors((prev) => ({
+              ...prev,
+              whatsapp_number: "",
+            }));
+          }}
+          className={inputClass("whatsapp_number")}
+        />
       </div>
 
       {/* Email */}
