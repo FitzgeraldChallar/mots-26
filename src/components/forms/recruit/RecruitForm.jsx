@@ -51,7 +51,7 @@ export default function RecruitForm() {
               variant="outline"
               onClick={() => setStep(2)}
             >
-              No, Continue as Recruit
+              No, Continue as Attendee
             </Button>
           </div>
         </div>
